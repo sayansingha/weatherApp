@@ -1,9 +1,12 @@
 //import request  from "https";
+console.time("Total Time");
 const request = require('request');
 const forecast = require('./utils/forecast.js')
 const geocode = require('./utils/geocode.js')
 
-
+var i 
+for(i = 1;i < 10;i++){
+  
 geocode('Raiganj West Bengal',(error, data)=>{
     
         
@@ -12,13 +15,14 @@ geocode('Raiganj West Bengal',(error, data)=>{
         console.log(data.location)
       console.log(forecastData)
       })
-      
+     
 })
+}
 
-
+console.timeEnd("Total Time");
 
  
-
+console.log('Sayan Singha')
 
 
 
