@@ -1,3 +1,3 @@
 # weatherApp
 
-Documentation of asynchronous nodeJS
+1. Documentation of asynchronous nodeJS.
