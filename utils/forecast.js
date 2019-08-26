@@ -1,18 +1,37 @@
 const request = require('request');
 
-const forecast=(lattitude, longitude, callback) =>{
-    const url = 'https://api.darksky.net/forecast/f4af100e9928e1bedd7269d5969299df/'+ lattitude +',' + longitude
-        request({url:url, json: true}, (error, response)=>{
-            if(error){
-                callback('Unable to ...',undefined)
-            }
-            else{
-                callback(undefined,{
-                    summary: response.body.currently.summary
-                })
-            }
-        })
-    }
+const forecast = (lattitude, longitude, callback) => {
+    const url = 'https://api.darksky.net/forecast/f4af100e9928e1bedd7269d5969299df/' + lattitude + ',' + longitude
+    request({
+        url: url,
+        json: true
+    }, (error, response) => {
+        if (error) {
+            callback('Unable to ...', undefined)
+        } else {
+            callback(undefined, {
+                summary: response.body.currently.summary
+            })
+        }
+    })
+}
+const promise = new Promise((resolve, reject) => {
+    let lattitude = 25.61667
+    let longitude = 88.11667
+    const url = 'https://api.darksky.net/forecast/f4af100e9928e1bedd7269d5969299df/' + lattitude + ',' + longitude
+    request({
+        url: url,
+        json: true
+    }, (error, response) => {
+        resolve(response.body.currently.summary)
+    })
+})
+
+promise.then((result)=>{
+    console.log(result)
+})
+
+
 
 module.exports = forecast
 
