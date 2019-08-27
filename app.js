@@ -4,15 +4,12 @@ console.time("TotalTime");
 
 let responseCount = 1
 for (let i = 0; i < input.length; i++) {
-  //let responsetimer = i;
-  let a = Date.now()
-  getweather(input[i], (forecast) => {
+  getweather(input[i]).then(({
+    summary
+  }) => {
     console.log(input[i])
-    console.log(forecast.summary)
-    responseCount++
-    if (responseCount === 11) {
-      console.timeEnd("TotalTime")
-    }
+    console.log(summary)
   })
 }
+
 console.log('Starts');

@@ -1,31 +1,24 @@
-const forecast = require('./forecast.js')
-const geocode = require('./geocode.js')
+const getGeocode = require('./geocode.js')
+const getForecast = require('./forecast.js')
 
-function getweather(location, cb) {
-  geocode(location, (error, data) => {
-    forecast(data.longitude, data.lattitude, (error, forecastData) => {
-
-
-      if (cb) {
-        cb(forecastData)
-      }
-    })
-
-
+function getWeather(location) {
+  const weatherPromise = new Promise((resolve, reject) => {
+    getGeocode(location)
+      .then(({
+        latitude,
+        longitude,
+        location
+      }) => {
+        return getForecast(longitude, latitude)
+      })
+      .then((summary) => {
+        resolve(summary);
+      })
+      .catch((e) => {
+        reject(e);
+      })
   })
+  return weatherPromise;
 }
-const promise = new Promise((resolve, reject) => {
-  geocode("Raiganj", (error, data) => {
-    forecast(data.longitude, data.lattitude, (error, forecastData) => {
 
-      resolve({forecastData,data})
-    })
-  })
-})
-
-promise.then(({forecastData,data}) => {
-  console.log(data.location)
-  console.log(forecastData.summary)
-})
-
-module.exports = getweather
+module.exports = getWeather
